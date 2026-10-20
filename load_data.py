@@ -38,8 +38,8 @@ class MyDataset(Dataset):
         image = Image.open(image_path).convert("RGB")
         if self.ulb_train:
             image_s = self.strong_stansform(image)
-            # u_s2 is a copy of the sampled u_s view for the AIA/pseudo-label path.
-            # DDCL can use u_s directly, unaffected by AIA's in-place edits to the copy.
+            # Kept for interface compatibility only. QRMatch.py (without DTF) discards this
+            # copy and shares u_s between the consistency path and DDCL.
             image_s2 = image_s.clone()
             image_w = self.weak_stansform(image)
             return image_s, image_s2, image_w, image_path, idex
